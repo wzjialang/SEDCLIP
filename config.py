@@ -15,9 +15,10 @@ class Config:
 
         # ---- clip / features ----
         self.clip_backbone = "ViT-B/16"
-        # bundled pretrained weight (self-contained); falls back to clip_backbone if missing
-        self.clip_weights = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "weights", "ViT-B-16.pt")
+        # Optional local checkpoint override. If empty, clip.load downloads
+        # the official CLIP weights and caches them under ~/.cache/clip.
+        self.clip_weights = ""
+        self.clip_download_root = None
         self.input_size = 224
         self.feat_dim = 512
         self.num_classes = 7        

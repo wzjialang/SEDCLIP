@@ -10,13 +10,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 import einops
 
-# Self-contained: bundled CLIP package (SEDCLIP/clip) + bundled weights (SEDCLIP/weights).
+# Self-contained CLIP package. CLIP weights are downloaded by clip.load unless
+# cfg.clip_weights points to an existing local checkpoint.
 _HERE = os.path.dirname(os.path.abspath(__file__))
 if _HERE not in sys.path:
     sys.path.insert(0, _HERE)
 from clip import clip
 
-from temporal_module import GTA
+from SEDCLIP.temporal_module import GTA
 
 
 class Model(nn.Module):
@@ -26,9 +27,12 @@ class Model(nn.Module):
         self.device = device
         self.num_classes = cfg.num_classes
 
-        clip_name = cfg.clip_weights if os.path.isfile(cfg.clip_weights) else cfg.clip_backbone
+        clip_weights = getattr(cfg, "clip_weights", "")
+        clip_weights = os.path.expanduser(clip_weights) if clip_weights else ""
+        clip_name = clip_weights if clip_weights and os.path.isfile(clip_weights) else cfg.clip_backbone
         self.clipmodel, _ = clip.load(
             clip_name, device='cpu', jit=False,
+            download_root=getattr(cfg, "clip_download_root", None),
             ignore_last_atten=cfg.ignore_last_atten)
         for p in self.clipmodel.parameters():
             p.requires_grad = False

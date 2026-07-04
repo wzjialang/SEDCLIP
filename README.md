@@ -5,7 +5,7 @@ This repository is released to make the Graph-attention Temporal Adaptor (GTA) i
 
 ## Setup and Quick Start
 
-Follow the steps below to clone the code, restore the large files, and run the minimal training example.
+Follow the steps below to clone the code, restore the example data, and run the minimal training example.
 
 ### 1. Clone the repository
 
@@ -14,17 +14,15 @@ git clone https://github.com/wzjialang/SEDCLIP.git
 cd SEDCLIP
 ```
 
-### 2. Download the release assets
+### 2. Download the example data
 
-Download the following files from the repository's GitHub Releases page and place them in the `SEDCLIP/` root directory:
+Download the following file from the repository's GitHub Releases page and place it in the `SEDCLIP/` root directory:
 
-- `SEDCLIP_weights.tar.gz`: contains `weights/ViT-B-16.pt`
 - `SEDCLIP_example_data.tar.gz`: contains `example_data/`
 
-### 3. Extract the large files
+### 3. Extract the example data
 
 ```bash
-tar -xzf SEDCLIP_weights.tar.gz -C .
 tar -xzf SEDCLIP_example_data.tar.gz -C .
 ```
 
@@ -33,7 +31,6 @@ After extraction, the expected repository layout is:
 ```text
 SEDCLIP/
 |-- clip/                  # Bundled CLIP implementation
-|-- weights/               # CLIP (ViT-B/16) pre-trained weight
 |-- prompt/cls.txt         # Class names used for CLIP text prompts
 |-- example_data/          # Small example dataset with one MLE-RARP video
 |-- config.py              # Default paths and hyperparameters
@@ -56,6 +53,8 @@ pip install -r requirements.txt
 ```bash
 python train_example.py --device cuda:0 --max_epoch 10
 ```
+
+On the first run, `clip.load("ViT-B/16")` downloads the official CLIP checkpoint and caches it under `~/.cache/clip` by default. To use a local checkpoint instead, set `self.clip_weights` in `config.py` to that file path.
 
 ## Acknowledge
 We sincerely appreciate the authors for releasing the following valuable resources: [openai/CLIP](https://github.com/openai/CLIP), [nwpu-zxr/VadCLIP](https://github.com/nwpu-zxr/VadCLIP), [ctX-u/PLOVAD](https://github.com/ctX-u/PLOVAD), [diegoantognini/pyGAT](https://github.com/diegoantognini/pyGAT/tree/master).

@@ -7,9 +7,9 @@ import einops
 from torch.utils.data import DataLoader
 from transformers import AutoImageProcessor
 
-from config import Config
-from dataset import RARPFrameDataset
-from ours_model import Model
+from SEDCLIP.config import Config
+from SEDCLIP.dataset import RARPFrameDataset
+from SEDCLIP.ours_model import Model
 
 
 def main():
