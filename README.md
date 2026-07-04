@@ -1,6 +1,6 @@
 # SEDCLIP: Adapting Vision-Language Model for Multi-label Surgical Error Detection
 
-This repository is released to make the Graph-attention Temporal Adaptor (GTA) independently checkable during review. It currently contains the relevant minimal implementation of the CLIP baseline + GTA module, with the central GTA equations (Eqs. 10 and 11) implemented in `temporal_module.py` (Lines 72-77).
+This repository is released to make the Graph-attention Temporal Adaptor (GTA) independently checkable during review. It currently contains the relevant minimal implementation of the CLIP baseline + GTA module, with the central GTA equations (Eqs. 10 and 11) implemented in `temporal_module.py` (Lines 71-77).
 
 
 ## Setup and Quick Start
