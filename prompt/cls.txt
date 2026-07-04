@@ -1,0 +1,7 @@
+normal
+multiple attempts
+out of view
+needle handling error
+tissue handling error
+suture handling error
+instrument control error

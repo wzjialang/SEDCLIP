@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.so
+
+.venv/
+venv/
+env/
+
+ckpt/
+*.log
+
+# Large files are distributed through GitHub Release assets.
+weights/*.pt
+example_data/frames/
+*.tar.gz
