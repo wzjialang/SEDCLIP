@@ -66,6 +66,16 @@ class Model(nn.Module):
         feats = einops.rearrange(cls, '(b t) c -> b t c', b=B, t=T)  # [B, T, 512]
         if self.temporal:
             feats = self.temporal_module(feats)             # [B, T, 512]
+        
+        # For reference only (not executed in this minimal release): in the SEDCLIP model, the GTA is applied to both global and local visual features by folding the token dimension into the batch dimension, so that the identical module operates purely along the temporal axis.
+        # To reproduce this behaviour, replace the Lines 64--68 with:
+        #
+        # if self.temporal:
+        #     feats = einops.rearrange(tokens, '(b t) n c -> (b n) t c', b=B, t=T)  # [(B*(N+1)), T, C]
+        #     feats = self.temporal_module(feats)
+        #     tokens = einops.rearrange(feats, '(b n) t c -> (b t) n c', b=B, t=T)  # [(B*T), N+1, C]
+        # feats = einops.rearrange(tokens[:, 0, :], '(b t) c -> b t c', b=B, t=T)   # CLS -> [B, T, C]
+        ## (the temporally enriched local tokens are consumed by the SEDCLIP local branch, which is omitted in this release)
 
         feats = F.normalize(feats, dim=-1, p=2)
         tfeat = F.normalize(self.text_features.type_as(feats), dim=-1, p=2)
