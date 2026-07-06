@@ -67,7 +67,7 @@ class Model(nn.Module):
         if self.temporal:
             feats = self.temporal_module(feats)             # [B, T, 512]
 
-        # For reference only (not executed in this minimal release): in the SEDCLIP model, 
+        # For reference only (not executed in this minimal release): in the full SEDCLIP model, 
         # the GTA is applied to both global and local visual features by 
         # folding the token dimension into the batch dimension,
         # so that the identical module operates purely along the temporal axis.
