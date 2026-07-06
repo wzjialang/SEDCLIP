@@ -51,7 +51,7 @@ pip install -r requirements.txt
 ### 5. Run the example
 
 ```bash
-python train_example.py --device cuda:0 --max_epoch 10
+python train_example.py --device cuda:0 --max_epoch 50
 ```
 
 On the first run, `clip.load("ViT-B/16")` downloads the official CLIP checkpoint and caches it under `~/.cache/clip` by default. To use a local checkpoint instead, set `self.clip_weights` in `config.py` to that file path.
